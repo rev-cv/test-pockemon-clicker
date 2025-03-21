@@ -1,0 +1,32 @@
+@use '@comps/WTextTitle/WTextTitle.scss' as TextTitle;
+
+.price,
+.current-money {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    gap: 6px;
+
+    picture {
+        width: 1.6em;
+        height: 1.6em;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+    }
+
+    &__account {
+        @include TextTitle.textTitle();
+    }
+}
+
+.price {
+    justify-content: center;
+}
+
+.current-money {
+    justify-content: flex-end;
+}

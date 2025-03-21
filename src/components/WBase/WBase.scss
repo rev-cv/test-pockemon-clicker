@@ -1,0 +1,6 @@
+
+@mixin baseForWidget() {
+    background-color: var(--color-bg-primary);
+	box-shadow: var(--color-box-shadow);
+    border-radius: 16px;
+}

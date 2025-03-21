@@ -1,0 +1,19 @@
+
+html {
+    --color-primary: #FFCC01;
+    --color-secondary: #365FAC;
+    --color-important: #FF4D4F;
+
+    --color-bg-primary: #fff;
+    --color-text: #000;
+
+    --color-box-shadow: 0px 0px 16px 0px #3A3A3A1A; // box-shadow
+    --color-gray-100: #EFEFEF;
+
+    --color-text-outline: 
+        -2px -2px 0 var(--color-secondary),
+        2px -2px 0 var(--color-secondary),
+        -2px 2px 0 var(--color-secondary),
+        2px 2px 0 var(--color-secondary)
+    ;
+}

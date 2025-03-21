@@ -1,0 +1,45 @@
+
+.frame-app {
+
+    background-color: var(--color-bg-primary);
+
+    display: grid;
+	grid-template-columns: 16em 4fr 16em;
+    grid-template-rows: 4.3em 1fr;
+	height: 100vh;
+	grid-template-areas: 
+		"header    header      header"
+		"left-side main        right-side"
+	;
+	gap: 1em;
+	padding: .8em;
+
+    &__header {
+        grid-area: header;
+    }
+
+    &__left {
+        grid-area: left-side;
+    }
+
+    &__right {
+        grid-area: right-side;
+        background-color: yellow;
+    }
+
+    &__center {
+        grid-area: main;
+        align-self: start;
+        background-color: yellowgreen;
+
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1em;
+
+    }
+
+    &__center-elem {
+        background-color: yellow;
+        align-self: start;
+    }
+}

@@ -1,0 +1,64 @@
+@use '@comps/WBase/WBase.scss' as WBase;
+@use '@comps/WTextTitle/WTextTitle.scss' as TextTitle;
+
+.app-inventory {
+    @include WBase.baseForWidget();
+    padding: .8em;
+
+    display: flex;
+    flex-direction: column;
+    gap: .8em;
+
+    &__title {
+        @include TextTitle.textTitle();
+    }
+
+    &__store {
+        display: grid;
+        gap: .6em;
+    }
+
+    &__cell {
+        position: relative;
+        border-radius: 4px;
+        overflow: hidden;
+
+        &::after {
+            position: absolute;
+            content: "";
+            inset: 0;
+            background-color: var(--color-gray-100);
+            // background-color: yellowgreen;
+        }
+
+        &.blocked::after {
+            opacity: .3;
+        }
+    }
+
+    &__pay-row {
+        grid-column: 1 / -1;
+        z-index: 10;
+        background-color: transparent;
+        border-radius: 4px;
+        outline: 3px solid var(--color-secondary);
+        cursor: pointer;
+    }
+}
+
+
+.invertory-elem {
+    z-index: 10;
+    border-radius: 4px;
+    background-color: var(--color-gray-100);
+    overflow: hidden;
+    cursor: move;
+    user-select: none;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        pointer-events: none;
+    }
+}
