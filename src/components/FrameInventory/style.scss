@@ -49,23 +49,24 @@
         outline: 3px solid var(--color-secondary);
         cursor: pointer;
     }
-}
 
-.invertory-elem {
-    z-index: 4;
-    border-radius: 4px;
-    background-color: var(--color-gray-100);
-    overflow: hidden;
-    cursor: move;
-    user-select: none;
-    position: relative;
-
-    img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        pointer-events: none;
+    .invertory-elem {
+        z-index: 4;
+        border-radius: 4px;
+        background-color: var(--color-gray-100);
+        overflow: hidden;
+        cursor: move;
+        user-select: none;
+        position: relative;
+    
         image-rendering: pixelated;
+    
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            pointer-events: none;
+        }
     }
 }
 

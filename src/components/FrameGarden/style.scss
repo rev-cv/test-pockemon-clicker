@@ -1,0 +1,154 @@
+@use '@comps/WBase/WBase.scss' as WBase;
+@use '@comps/WTextTitle/WTextTitle' as WTextTitle;
+@use '@comps/WBlueButton/WBlueButton' as WBlueButton;
+
+.mygarden {
+    @include WBase.baseForWidget();
+
+    font-size: 1rem;
+    padding: .8em;
+
+    display: grid;
+    grid-template-columns: 1fr .8em;
+
+    &__title {
+        @include WTextTitle.textTitle();
+        align-self: center;
+    }
+
+    &__wrapper {
+        display: grid;
+        grid-template-rows: 0fr;
+        transition: grid-template-rows 300ms ease-out;
+        grid-column: 1 / -1;
+    }
+
+    &__content {
+        display: grid;
+        grid-template-columns: 1fr minmax(200px, 300px);
+        gap: .6em;
+
+        overflow: hidden;
+        margin: 0px;
+        padding: 0px;
+        opacity: 0;
+
+        transition: 
+            margin 300ms ease-in-out,
+            padding 300ms ease-in-out,
+            opacity 300ms ease-in-out
+        ;
+    }
+
+    &__arrow,
+    &__title {
+        cursor: pointer;
+    }
+
+    &__arrow {
+        transform: rotate(-180deg);
+        transition: transform 300ms ease-in-out;
+    }
+
+    &__garden {
+        display: grid;
+        gap: 0.6em;
+    }
+
+    &__garden-cell {
+        border-radius: 4px;
+        overflow: hidden;
+        background-color: var(--color-gray-100);
+        opacity: .3;
+
+        &.active {
+            opacity: 1;
+        }
+    }
+
+    .garden-elem {
+        z-index: 4;
+        border-radius: 4px;
+        background-color: var(--color-gray-100);
+        overflow: hidden;
+        user-select: none;
+        position: relative;
+    
+        image-rendering: pixelated;
+    
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            pointer-events: none;
+        }
+    }
+
+    &__garden-shop {
+        display: flex;
+        flex-direction: column;
+        gap: 0.6em;
+    }
+
+    &__garden-shop-card {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas: 
+            "gt gt"
+            "gb gm"
+        ;
+        gap: 0.6em;
+
+        &-title {
+            grid-area: gt;
+            font-family: Roboto;
+            font-weight: 700;
+            font-size: .7em;
+            line-height: 1.57em;
+            text-align: left;
+        }
+
+        &-price {
+            grid-area: gm;
+        }
+
+        &-buy {
+            grid-area: gb;
+            @include WBlueButton.blueButton();
+            justify-self: start;
+        }
+    }
+
+    &__garden-shop-speed {
+        flex-grow: 1;
+
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+
+        span {
+            font-family: Roboto;
+            font-weight: 700;
+            font-size: .7em;
+            line-height: 1.57em;
+
+        }
+    }
+}
+
+.mygarden.expanded {
+    .mygarden__wrapper {
+        grid-template-rows: 1fr;
+    }
+
+    .mygarden__content {
+        opacity: 1;
+        margin: 0 -.8em -.8em -.8em;
+        padding: .8em;
+        clip-path: inset(-10px -10px -10px -10px);
+    }
+
+    .mygarden__arrow {
+        transform: translate(0)
+    }
+}

@@ -1,5 +1,5 @@
 import './style.scss';
-import CurrentMoney from "@comps/WMoney/CurrentMoney"
+import CurrentMoney from "@comps/WMoney/CurrentMoney";
 
 const AppHeader = () => {
     return <div className="app-header">

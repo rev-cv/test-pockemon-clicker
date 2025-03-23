@@ -17,11 +17,10 @@ const Inventory = () => {
     const [currentIDElementDrop, setStatusDrop] = useState<number | undefined>(undefined);
 
     const [fruits, updateStateFuits] = useState<TypeInventoryElementArray>([
-        {column: 4, row:2, height:2, width:2, img: "/fruit1.png"},
-        {column: 1, row:1, height:1, width:1, img: "/fruit2.png"},
-        {column: 3, row:2, height:1, width:1, img: "/fruit3.png"},
+        {column: 4, row:2, height:2, width:2, img: "/fruit1.png", name: "Ягода 2 уровня"},
+        {column: 1, row:1, height:1, width:1, img: "/fruit2.png", name: "Покеболл 1 уровня"},
+        {column: 3, row:2, height:1, width:1, img: "/fruit3.png", name: "Покеболл 2 уровня"},
     ])
-
 
     const movedFuit = (event:React.DragEvent<HTMLDivElement>, idCell: number ) => {
         console.log("movedFuit");
@@ -93,6 +92,9 @@ const Inventory = () => {
             )}
 
             {
+                // пришлось поступить так, чтобы была возможность 
+                // перемещать элемент на ячейку
+                // которую он уже занимает
                 Array.from({ length: cells }).map((_, index) => (
                     <div 
                         className="app-inventory__cell-event"

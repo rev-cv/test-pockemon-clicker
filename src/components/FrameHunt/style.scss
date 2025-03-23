@@ -1,0 +1,69 @@
+@use '@comps/WBase/WBase.scss' as WBase;
+@use '@comps/WTextTitle/WTextTitle' as WTextTitle;
+
+.myhunt {
+    @include WBase.baseForWidget();
+
+    font-size: 1rem;
+    padding: .8em;
+
+    display: grid;
+    grid-template-columns: 1fr .8em;
+
+    &__title {
+        @include WTextTitle.textTitle();
+        align-self: center;
+    }
+
+    &__wrapper {
+        display: grid;
+        grid-template-rows: 0fr;
+        transition: grid-template-rows 300ms ease-out;
+        grid-column: 1 / -1;
+    }
+
+    &__content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(8.25em, 1fr));
+        grid-auto-rows: minmax(12.35em, auto) ;
+        gap: .6em;
+
+        overflow: hidden;
+        margin: 0px;
+        padding: 0px;
+        opacity: 0;
+
+        transition: 
+            margin 300ms ease-in-out,
+            padding 300ms ease-in-out,
+            opacity 300ms ease-in-out
+        ;
+    }
+
+    &__arrow,
+    &__title {
+        cursor: pointer;
+    }
+
+    &__arrow {
+        transform: rotate(-180deg);
+        transition: transform 300ms ease-in-out;
+    }
+}
+
+.myhunt.expanded {
+    .myhunt__wrapper {
+        grid-template-rows: 1fr;
+    }
+
+    .myhunt__content {
+        opacity: 1;
+        margin: 0 -.8em -.8em -.8em;
+        padding: .8em;
+        clip-path: inset(-10px -10px -10px -10px);
+    }
+
+    .myhunt__arrow {
+        transform: translate(0)
+    }
+}

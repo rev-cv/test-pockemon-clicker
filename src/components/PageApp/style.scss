@@ -30,7 +30,7 @@
     &__center {
         grid-area: main;
         align-self: start;
-        background-color: yellowgreen;
+        // background-color: yellowgreen;
 
         display: grid;
         grid-template-columns: 1fr;
@@ -39,7 +39,7 @@
     }
 
     &__center-elem {
-        background-color: yellow;
+        // background-color: yellow;
         align-self: start;
     }
 }
