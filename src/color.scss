@@ -6,8 +6,15 @@ html {
 
     --color-bg-primary: #fff;
     --color-text: #000;
+    --color-curtain: rgba(0, 0, 0, .3);
 
     --color-box-shadow: 0px 0px 16px 0px #3A3A3A1A; // box-shadow
+    --color-modal-shadow: // box-shadow
+        0px 9px 28px 8px #0000000D,
+        0px 6px 16px 0px #00000014,
+        0px 3px 6px -4px #0000001F
+    ;
+    
     --color-gray-100: #EFEFEF;
 
     --color-text-outline: 
@@ -16,4 +23,6 @@ html {
         -2px 2px 0 var(--color-secondary),
         2px 2px 0 var(--color-secondary)
     ;
+    
+    
 }

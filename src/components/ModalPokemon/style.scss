@@ -1,0 +1,350 @@
+@use '@comps/WBlueButton/WBlueButton' as WBlueButton;
+@use '@comps/WBase/WBase' as WBase;
+
+.modal-poke {
+    position: fixed;
+    background-color: var(--color-curtain);
+    inset: 0;
+    z-index: 100;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    user-select: none;
+    cursor: pointer;
+
+    backdrop-filter: blur(2px);
+
+    transition: 
+        opacity 300ms ease-in-out,
+        backdrop-filter 300ms ease-in-out
+    ;
+
+    &__window {
+        width: 572px;
+        height: 428px;
+        background-color: var(--color-bg-primary);
+        box-shadow: var(--color-modal-shadow);
+        border-radius: 2px;
+        overflow: hidden;
+
+        display: grid;
+        grid-template-columns: 1fr .7fr .3fr;
+        grid-template-rows: auto 1px auto 1fr 1px auto;
+        grid-template-areas: 
+            "title title close1"
+            "line1 line1 line1"
+            "tab1 tab2 tab2"
+            "content content content"
+            "line2 line2 line2"
+            "close2 close2 close2"
+        ;
+        padding: .8em 1.2em;
+        cursor: default;
+
+        transform: scale(1);
+        transition: 
+            transform 200ms ease-in-out
+        ;
+
+        &::before {
+            grid-area: line1;
+            content: "";
+            background-color: rgba(0, 0, 0, 6%);
+            transform: scaleX(2);
+        }
+
+        &::after {
+            grid-area: line2;
+            content: "";
+            background-color: rgba(0, 0, 0, 6%);
+            max-height: 1px;
+            transform: scaleX(2);
+        }
+    }
+
+    &__title {
+        grid-area: title;
+        font-family: Roboto;
+        font-weight: 500;
+        font-size: .8em;
+        line-height: 1.5em;
+        padding-bottom: 1em;
+        opacity: .85;
+    }
+
+    &__close-1 {
+        grid-area: close1;
+        justify-self: end;
+        align-self: start;
+        padding: 0;
+        cursor: pointer;
+        transition: opacity 150ms ease-in-out;
+
+        &:hover {
+            opacity: .6;
+        }
+    }
+
+    &__close-2 {
+        grid-area: close2;
+        @include WBlueButton.blueButton();
+        justify-self: end;
+        padding: .35714em 1.142857em;
+        line-height: 1.57em;
+        margin: 10px calc(16px - 24px) -6px 0;
+    }
+
+    &__tab-1 {
+        grid-area: tab1;
+        justify-self: end;
+        margin-right: .3em;
+    }
+
+    &__tab-2 {
+        grid-area: tab2;
+        justify-self: start;
+        margin-left: .3em;
+    }
+
+    &__tab-1,
+    &__tab-2 {
+        font-family: Roboto;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 22px;
+        padding: .857em .857em calc(.857em - 3px) .857em;
+        cursor: pointer;
+        position: relative;
+        border-bottom: 3px solid transparent;
+        opacity: .85;
+        transition: 
+            color 300ms ease-in-out,
+            border-color 300ms ease-in-out,
+            opacity 300ms ease-in-out
+        ;
+
+        &::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-color: transparent;
+            transition: background-color 150ms ease-in-out;
+        }
+        
+        &:hover::after {
+            background-color: rgba(0, 0, 0, .025);
+        }
+
+        &.active {
+            color: var(--color-secondary);
+            border-color: var(--color-secondary);
+            opacity: 1;
+        }
+    }
+
+    &__content {
+        grid-area: content;
+        border-top: 1px solid rgba(0, 0, 0, 6%);
+        overflow-y: scroll;
+
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: .6em;
+        
+        padding: 10px;
+        margin: 0 -10px;
+    }
+
+    &__card {
+        @include WBase.baseForWidget();
+        padding: 0.6em;
+
+        display: grid;
+        grid-template-columns: 59px 1fr;
+        grid-template-areas: 
+            "cover title"
+            "cover descr"
+            "btn btn"
+        ;
+        gap: .3em 1.15em;
+
+        &-title {
+            grid-area: title;
+            font-family: Inter;
+            font-weight: 700;
+            font-size: .8em;
+            line-height: 1em;
+        }
+
+        &-descr {
+            grid-area: descr;
+            font-family: Inter;
+            font-weight: 500;
+            font-size: .7em;
+            line-height: 1em;
+        }
+
+        &-img {
+            grid-area: cover;
+            image-rendering: pixelated;
+            aspect-ratio: 1 / 1;
+            background-color: var(--color-gray-100);
+            border-radius: 4px;
+            overflow: hidden;
+            image-rendering: pixelated;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+            }
+        }
+
+        &-btn {
+            grid-area: btn;
+            @include WBlueButton.blueButton();
+            line-height: 1.7em;
+        }
+    }
+
+    &__about {
+        grid-column: 1 / -1;
+
+        display: grid;
+        grid-template-columns: 143px 1fr 102px;
+        grid-template-rows: repeat(5, calc((143px - (12px * 4)) / 5 ));
+        align-content: start;
+        grid-template-areas: 
+            "avatar species species"
+            "avatar weight weight"
+            "avatar summoney summoney"
+            "avatar moneysec moneysec"
+            "avatar age age" 
+            "delete newnametext newname"
+        ;
+        grid-auto-rows: auto;
+        gap: 0.6em;
+
+        &-avatar {
+            grid-area: avatar;
+            background-color: var(--color-gray-100);
+            overflow: hidden;
+            border-radius: 6px;
+            aspect-ratio: 1 / 1;
+            image-rendering: pixelated;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+            }
+        }
+
+        &-species {
+            grid-area: species;
+
+            &::before {
+                content: "Вид";
+            }
+        }
+
+        &-weight {
+            grid-area: weight;
+
+            &::before {
+                content: "Вес";
+            }
+        }
+
+        &-summoney {
+            grid-area: summoney;
+
+            &::before {
+                content: "Суммарно заработано";
+            }
+        }
+
+        &-moneysec {
+            grid-area: moneysec;
+
+            &::before {
+                content: "Денег/сек";
+            }
+        }
+
+        &-age {
+            grid-area: age;
+
+            &::before {
+                content: "Возраст";
+            }
+        }
+
+        &-species,
+        &-weight,
+        &-summoney,
+        &-moneysec,
+        &-age {
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            &::before {
+                font-family: Inter;
+                font-weight: 700;
+                font-size: 16px;
+                line-height: 1em;
+                letter-spacing: 0%;
+                max-height: 1em !important;
+            }
+
+            span {
+                font-family: Inter;
+                font-weight: 500;
+                font-size: 16px;
+                line-height: 1em;
+                max-height: 1em !important;
+            }
+        }
+
+        &-delete {
+            grid-area: delete;
+            @include WBlueButton.blueButton();
+            padding-left: 8px;
+            padding-right: 8px;
+
+        }
+
+        &-newname {
+            grid-area: newname;
+            @include WBlueButton.blueButton();
+        }
+
+        &-newname-text {
+            grid-area: newnametext;
+            width: 100%;
+            outline-color: #1890FF33;
+            border: 1px solid #40A9FF;
+            border-radius: 2px;
+
+            font-family: Roboto;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 22px;
+            padding: 6px 13px 4px 13px;
+        }
+
+    }
+}
+
+.modal-poke.hide {
+    opacity: 0;
+    backdrop-filter: blur(0);
+
+    .modal-poke__window {
+        transform: scale(1.1);
+    }
+}

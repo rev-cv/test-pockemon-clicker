@@ -1,13 +1,14 @@
 import './style.scss';
 import { useState } from "react";
-import PokemonsCard, {TypePokemon} from "./PokemonCard";
+import PokemonsCard from "./PokemonCard";
+import {TypePokemon} from './type.pokemon';
 
 import mock from './mock.json';
 
 const MyPokemons = () => {
 
     const [pokemons, updatePokemons] = useState<TypePokemon[]>(mock);
-    const [isExpanded, setStateExpanded] = useState(true);
+    const [isExpanded, setStateExpanded] = useState(false);
 
     return <div className={`mypoke${isExpanded ? " expanded": ""}` }>
         <div className="mypoke__title" onClick={() => setStateExpanded(!isExpanded)}>My Pokemons</div>

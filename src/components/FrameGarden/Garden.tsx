@@ -6,7 +6,7 @@ import Price from '@comps/WMoney/Price';
 
 const MyGarden = () => {
 
-    const [isExpanded, setStateExpanded] = useState(true);
+    const [isExpanded, setStateExpanded] = useState(false);
     const [fuits, updateFuits] = useState<TypeGardenElement[]>([
 		{column: 1, row:2, height:1, width:1, img: "/fruit1.png", name: "Ягода 1 уровня", speedGrow: 1},
 		{column: 4, row:2, height:1, width:1, img: "/fruit1.png", name: "Ягода 1 уровня", speedGrow: 1},

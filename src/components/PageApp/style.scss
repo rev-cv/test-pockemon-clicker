@@ -8,14 +8,19 @@
     grid-template-rows: 4.3em 1fr;
 	height: 100vh;
 	grid-template-areas: 
-		"header    header      header"
-		"left-side main        right-side"
+		"header    header header"
+		"left-side main   right-side"
 	;
 	gap: 1em;
 	padding: .8em;
 
+    position: relative;
+
     &__header {
         grid-area: header;
+        position: sticky;
+        top: 0;
+        z-index: 20;
     }
 
     &__left {
@@ -24,7 +29,6 @@
 
     &__right {
         grid-area: right-side;
-        background-color: yellow;
     }
 
     &__center {
@@ -35,7 +39,6 @@
         display: grid;
         grid-template-columns: 1fr;
         gap: 1em;
-
     }
 
     &__center-elem {

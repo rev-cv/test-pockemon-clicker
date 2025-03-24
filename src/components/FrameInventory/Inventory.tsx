@@ -22,19 +22,9 @@ const Inventory = () => {
         {column: 3, row:2, height:1, width:1, img: "/fruit3.png", name: "Покеболл 2 уровня"},
     ])
 
-    const movedFuit = (event:React.DragEvent<HTMLDivElement>, idCell: number ) => {
-        console.log("movedFuit");
-
-        event.preventDefault()
-
-        if (boughtOutRows * inRow < idCell) {
-            return;
-        }
-
-        if (currentIDElementDrop === undefined) {
-            console.log('currentIDElementDrop === undefined')
-            return;
-        }
+    const movedFuit = (idCell: number ) => {
+        if (boughtOutRows * inRow < idCell) return;
+        if (currentIDElementDrop === undefined) return;
 
         const resultCalculation = moveFruitInInventory(
             currentIDElementDrop,
@@ -103,7 +93,7 @@ const Inventory = () => {
                             gridRow: Math.ceil((index + 1) / inRow),
                             gridColumn: ((index % inRow) + 1),
                         }}
-                        onDragEnter={e => movedFuit(e, index)}
+                        onDragEnter={() => movedFuit(index)}
                         // onDrop={() => movedFuit(index)}
                         >
                     </div>

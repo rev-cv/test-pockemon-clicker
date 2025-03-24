@@ -1,0 +1,148 @@
+@use '@comps/WBase/WBase.scss' as WBase;
+@use '@comps/WBlueButton/WBlueButton' as WBlueButton;
+
+.frame-register {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    gap: 1em;
+
+    &__header {
+        display: flex;
+        height: 56px;
+        gap: 12px;
+
+        picture {
+            height: 100%;
+    
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+            }
+        }
+    
+        &::after {
+            content: "";
+            order: 2;
+            width: 2px;
+            height: 100%;
+            background-color: var(--color-gray-100);
+            display: block;
+        }
+    
+        &-p1 {
+            order: 1;
+        }
+    
+        &-p2 {
+            order: 3;
+        }
+    }
+
+    &__window {
+        @include WBase.baseForWidget();
+        padding: 1.2em;
+
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px 32px;
+
+        max-width: 400px;
+        width: 400px;
+    }
+
+    &__tab-1 {
+        justify-self: end;
+    }
+
+    &__tab-2 {
+        justify-self: start;
+    }
+
+    &__tab-1,
+    &__tab-2 {
+        font-family: Roboto;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 22px;
+        padding: .857em .857em calc(.857em - 3px) .857em;
+        cursor: pointer;
+        position: relative;
+        border-bottom: 3px solid transparent;
+        opacity: .85;
+        transition: 
+            color 300ms ease-in-out,
+            border-color 300ms ease-in-out,
+            opacity 300ms ease-in-out
+        ;
+        text-decoration: none;
+        color: var(--color-text);
+
+        &::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-color: transparent;
+            transition: background-color 150ms ease-in-out;
+        }
+        
+        &:hover::after {
+            background-color: rgba(0, 0, 0, .025);
+        }
+
+        &.active {
+            color: var(--color-secondary);
+            border-color: var(--color-secondary);
+            opacity: 1;
+        }
+    }
+
+    label, input[type="text"] {
+        grid-column: 1 / -1;
+    }
+
+    label {
+        display: flex;
+        user-select: none;
+        gap: 4px;
+        align-items: center;
+
+        svg {
+            transform: translateY(-5px);
+        }
+
+        span {
+            font-family: Roboto;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 22px;
+            opacity: .85;
+        }
+    }
+
+    input[type="text"] {
+        transform: translateY(-8px);
+        font-family: Roboto;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 22px;
+        padding: 6px 13px 4px 13px;
+        border: 1px solid #D9D9D9;
+        border-radius: 2px;
+
+        outline: 1px solid transparent;
+
+        &:focus {
+            outline-color: #40A9FF;
+        }
+    }
+
+    &__submit {
+        @include WBlueButton.blueButton();
+        grid-column: 1 / -1;
+        height: 32px;
+    }
+}

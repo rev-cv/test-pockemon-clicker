@@ -3,7 +3,7 @@ import { useState } from "react";
 
 const MyHunt = () => {
 
-    const [isExpanded, setStateExpanded] = useState(true);
+    const [isExpanded, setStateExpanded] = useState(false);
 
     return <div className={`myhunt${isExpanded ? " expanded": ""}` }>
         <div className="myhunt__title" onClick={() => setStateExpanded(!isExpanded)}>Hunt</div>
