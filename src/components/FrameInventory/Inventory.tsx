@@ -1,12 +1,11 @@
 import './style.scss';
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Price from "@comps/WMoney/Price";
 import { moveFruitInInventory } from "@utils/inventory.calcPostition"
 
-import InventoryElement, {TypeInventoryElement} from './InventoryElement';
-type TypeInventoryElementArray = TypeInventoryElement[];
-
+import InventoryElement from './InventoryElement';
+import { useInventory } from '@utils/redux.hook.inventory';
 
 const Inventory = () => {
 
@@ -16,11 +15,7 @@ const Inventory = () => {
     const [boughtOutRows, setBoughtOutRows] = useState(6);
     const [currentIDElementDrop, setStatusDrop] = useState<number | undefined>(undefined);
 
-    const [fruits, updateStateFuits] = useState<TypeInventoryElementArray>([
-        {column: 4, row:2, height:2, width:2, img: "/fruit1.png", name: "Ягода 2 уровня"},
-        {column: 1, row:1, height:1, width:1, img: "/fruit2.png", name: "Покеболл 1 уровня"},
-        {column: 3, row:2, height:1, width:1, img: "/fruit3.png", name: "Покеболл 2 уровня"},
-    ])
+    const [fruits, updateStateFuits] = useInventory();
 
     const movedFuit = (idCell: number ) => {
         if (boughtOutRows * inRow < idCell) return;
@@ -29,7 +24,7 @@ const Inventory = () => {
         const resultCalculation = moveFruitInInventory(
             currentIDElementDrop,
             idCell,
-            fruits,
+            [...fruits],
             { width: inRow, height: boughtOutRows }
         )
 
@@ -37,6 +32,14 @@ const Inventory = () => {
             updateStateFuits(resultCalculation.newListElements)
         }
     }
+
+    useEffect(() => {
+        updateStateFuits([
+            {column: 4, row:2, height:2, width:2, img: "/fruit1.png", name: "Ягода 2 уровня"},
+            {column: 1, row:1, height:1, width:1, img: "/fruit2.png", name: "Покеболл 1 уровня"},
+            {column: 3, row:2, height:1, width:1, img: "/fruit3.png", name: "Покеболл 2 уровня"},
+        ])
+    }, [])
 
     return <div className="app-inventory">
         <div className="app-inventory__title">Inventory</div>

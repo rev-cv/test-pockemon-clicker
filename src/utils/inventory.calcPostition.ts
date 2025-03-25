@@ -1,5 +1,5 @@
 
-import {TypeInventoryElement} from '@comps/FrameInventory/InventoryElement'
+import {TypeInventoryElement} from '@mt/TypeInventoryElement';
 
 type TypeResultCalc = {
     permissionToMove: boolean,

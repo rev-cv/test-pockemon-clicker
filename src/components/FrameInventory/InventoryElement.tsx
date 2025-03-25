@@ -1,14 +1,6 @@
 
 import { useState, useEffect } from "react";
-
-export type TypeInventoryElement = {
-    name?: string;
-    column: number;
-    row: number;
-    width: number;
-    height: number;
-    img: string;
-}
+import {TypeInventoryElement} from '@mt/TypeInventoryElement';
 
 type TypeInveentoryEvents = {
     setStatusDrop: ((status: boolean) => {});
