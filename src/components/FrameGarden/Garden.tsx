@@ -20,8 +20,8 @@ const MyGarden = () => {
 	const [speedGrow, updateSpeedGrow] = useState(15); // %
 
     return <div className={`mygarden${isExpanded ? " expanded": ""}` }>
-        <div className="mygarden__title" onClick={() => setStateExpanded(!isExpanded)}>Garden</div>
-        <div className="mygarden__arrow" onClick={() => setStateExpanded(!isExpanded)}>
+        <div className="mygarden__title">Garden</div>
+        <div className="mygarden__arrow">
             <svg width="18" height="11" viewBox="0 0 18 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M9.00004 0.0254974L0.762207 8.26216L3.23787 10.7378L9.00004 4.9745L14.7622 10.7378L17.2379 8.26216L9.00004 0.0254974Z" fill="#365FAC"/>
             </svg>
@@ -89,6 +89,8 @@ const MyGarden = () => {
 			</div>
             
         </div>
+
+		<div className="mygarden__switch" onClick={() => setStateExpanded(!isExpanded)}></div>
     </div>
 }
 

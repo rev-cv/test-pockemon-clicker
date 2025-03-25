@@ -1,21 +1,24 @@
 import './style.scss';
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Price from "@comps/WMoney/Price";
 import { moveFruitInInventory } from "@utils/inventory.calcPostition"
 
 import InventoryElement from './InventoryElement';
-import { useInventory } from '@utils/redux.hook.inventory';
+import { useInventory, useInventoryRow } from '@utils/redux.hook.inventory';
+import { useAccount } from '@utils/redux.hook.account';
 
 const Inventory = () => {
 
     const inRow = 5; // количество ячеек в ряду
     const maxRows = 11; // максимально доступное количество рядов
     const cells = maxRows * inRow;
-    const [boughtOutRows, setBoughtOutRows] = useState(6);
+    // const [boughtOutRows, setBoughtOutRows] = useState(6);
     const [currentIDElementDrop, setStatusDrop] = useState<number | undefined>(undefined);
 
     const [fruits, updateStateFuits] = useInventory();
+    const [boughtOutRows, addInventoryRow] = useInventoryRow();
+    const [, payMoney] = useAccount();
 
     const movedFuit = (idCell: number ) => {
         if (boughtOutRows * inRow < idCell) return;
@@ -32,14 +35,6 @@ const Inventory = () => {
             updateStateFuits(resultCalculation.newListElements)
         }
     }
-
-    useEffect(() => {
-        updateStateFuits([
-            {column: 4, row:2, height:2, width:2, img: "/fruit1.png", name: "Ягода 2 уровня"},
-            {column: 1, row:1, height:1, width:1, img: "/fruit2.png", name: "Покеболл 1 уровня"},
-            {column: 3, row:2, height:1, width:1, img: "/fruit3.png", name: "Покеболл 2 уровня"},
-        ])
-    }, [])
 
     return <div className="app-inventory">
         <div className="app-inventory__title">Inventory</div>
@@ -67,11 +62,19 @@ const Inventory = () => {
                 ))
             }
 
-            <button 
-                className="app-inventory__pay-row"
-                style={{gridRow: boughtOutRows + 1}}
-                ><Price price={100000} />
-            </button>
+            {
+                (boughtOutRows < maxRows) && <button 
+                    className="app-inventory__pay-row"
+                    style={{gridRow: boughtOutRows + 1}}
+                    onClick={() => { 
+                        if (boughtOutRows < maxRows) {
+                            addInventoryRow();
+                            payMoney(100000);
+                        }
+                    }}
+                    ><Price price={100000} />
+                </button>
+            }           
 
             { fruits.map((elem, index) => 
                 <InventoryElement 
@@ -85,7 +88,7 @@ const Inventory = () => {
             )}
 
             {
-                // пришлось поступить так, чтобы была возможность 
+                // должна быть возможность 
                 // перемещать элемент на ячейку
                 // которую он уже занимает
                 Array.from({ length: cells }).map((_, index) => (

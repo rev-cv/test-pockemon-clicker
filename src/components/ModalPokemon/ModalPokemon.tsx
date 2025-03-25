@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import svgClose from '@asset/close.svg?raw';
 import {TypePokemon} from '@comps/FrameMyPokemons/type.pokemon';
 import {roundFormatNumber, formatNumber} from '@utils/formatNumber';
+import { useInventory } from '@utils/redux.hook.inventory';
 
 type TypeCloseModal = {
     closeModal: () => void
@@ -10,15 +11,7 @@ type TypeCloseModal = {
 
 const ModalPokemon = ({id, name, species, weight, totalEarned, moneySec, age, avatar, closeModal}:TypePokemon & TypeCloseModal) => {
 
-    const [fruits, updateFruits] = useState([
-        {title: "Ягода 1 уровня", descr: "Накорми ей покемона для увеличения веса на 0.1 кг", img: "/fruit1.png"},
-        {title: "Ягода 1 уровня", descr: "Накорми ей покемона для увеличения веса на 0.1 кг", img: "/fruit1.png"},
-        {title: "Ягода 1 уровня", descr: "Накорми ей покемона для увеличения веса на 0.1 кг", img: "/fruit1.png"},
-        {title: "Ягода 1 уровня", descr: "Накорми ей покемона для увеличения веса на 0.1 кг", img: "/fruit1.png"},
-        {title: "Ягода 1 уровня", descr: "Накорми ей покемона для увеличения веса на 0.1 кг", img: "/fruit1.png"},
-        {title: "Ягода 1 уровня", descr: "Накорми ей покемона для увеличения веса на 0.1 кг", img: "/fruit1.png"},
-        {title: "Ягода 1 уровня", descr: "Накорми ей покемона для увеличения веса на 0.1 кг", img: "/fruit1.png"},
-    ]);
+    const [fruits, , eatenFruit] = useInventory();
     const [openTab, setOpenTab] = useState<1|2>(1);
     const [isNotView, setStatusView] = useState(true);
 
@@ -64,13 +57,17 @@ const ModalPokemon = ({id, name, species, weight, totalEarned, moneySec, age, av
 
                 {
                     openTab === 1 && fruits.map( (elem, index) => (
-                        <div className="modal-poke__card" key={`modal-poke-card-fruit-${index}`}>
-                            <div className="modal-poke__card-title">{elem.title}</div>
-                            <div className="modal-poke__card-descr">{elem.descr}</div>
-                            <picture className="modal-poke__card-img" title={elem.title}>
-                                <img src={elem.img} alt={elem.title} />
+                        elem.isEdible && elem.weight && <div className="modal-poke__card" key={`modal-poke-card-fruit-${index}`}>
+                            <div className="modal-poke__card-title">{elem.name}</div>
+                            <div className="modal-poke__card-descr">{`Накорми ей покемона для увеличения веса на ${(elem.weight / 1000).toFixed(1)} кг`}</div>
+                            <picture className="modal-poke__card-img" title={elem.name}>
+                                <img src={elem.img} alt={elem.name} />
                             </picture>
-                            <button className="modal-poke__card-btn">Накормить</button>
+                            <button 
+                                className="modal-poke__card-btn"
+                                onClick={() => eatenFruit([elem.column, elem.row])}
+                                >Накормить
+                            </button>
                         </div>
                     ))
                 }

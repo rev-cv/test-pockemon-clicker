@@ -14,6 +14,8 @@
     &__title {
         @include WTextTitle.textTitle();
         align-self: center;
+        grid-row: 1;
+        grid-column: 1;
     }
 
     &__wrapper {
@@ -40,14 +42,20 @@
         ;
     }
 
-    &__arrow,
-    &__title {
-        cursor: pointer;
-    }
-
     &__arrow {
         transform: rotate(-180deg);
         transition: transform 300ms ease-in-out;
+        grid-row: 1;
+        grid-column: 2;
+    }
+
+    &__switch {
+        grid-row: 1;
+        grid-column: 1 / -1;
+        background-color: transparent;
+        margin: -.8em;
+        cursor: pointer;
+        z-index: 5;
     }
 
     &__garden {

@@ -13,6 +13,8 @@
     &__title {
         @include WTextTitle.textTitle();
         align-self: center;
+        grid-column: 1;
+        grid-row: 1;
     }
 
     &__wrapper {
@@ -20,6 +22,7 @@
         grid-template-rows: 0fr;
         transition: grid-template-rows 300ms ease-out;
         grid-column: 1 / -1;
+        grid-row: 2;
     }
 
     &__content {
@@ -40,14 +43,20 @@
         ;
     }
 
-    &__arrow,
-    &__title {
-        cursor: pointer;
-    }
-
     &__arrow {
         transform: rotate(-180deg);
         transition: transform 300ms ease-in-out;
+        grid-column: 2;
+        grid-row: 1; 
+    }
+
+    &__switch {
+        grid-row: 1;
+        grid-column: 1 / -1;
+        background-color: transparent;
+        margin: -.8em;
+        cursor: pointer;
+        z-index: 5;
     }
 }
 
