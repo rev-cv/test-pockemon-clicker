@@ -1,14 +1,6 @@
-export type TypeGardenElement = {
-    name?: string;
-    column: number;
-    row: number;
-    width: number;
-    height: number;
-    img: string;
-    speedGrow?: number;
-}
+import { TypeGardenElement } from '@mt/TypeGardenElement';
 
-const GardenElement = ({name, column, row, height, width, img}:TypeGardenElement) => {
+const GardenElement = ({name, column, row, height, width, img, complete}:TypeGardenElement) => {
     return <div 
         className="garden-elem"
         style={{
@@ -17,6 +9,7 @@ const GardenElement = ({name, column, row, height, width, img}:TypeGardenElement
         }}
         title={name || ""}
         ><img src={img} alt="" />
+        { complete < 100 && <div className='garden-elem__complete'>{complete.toFixed(1)}</div> }
     </div>
 }
 

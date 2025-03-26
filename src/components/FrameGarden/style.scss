@@ -90,6 +90,22 @@
             object-fit: contain;
             pointer-events: none;
         }
+
+        &__complete {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: #000;
+            color: #fff;
+            font-size: 10px;
+            line-height: 1em;
+            padding: .1em .2em;
+            border-radius: 2px;
+
+            &::after {
+                content: "%";
+            }
+        }
     }
 
     &__garden-shop {

@@ -1,23 +1,24 @@
 import './style.scss';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-import GardenElement, {TypeGardenElement} from './GardenElement';
+import GardenElement from './GardenElement';
 import Price from '@comps/WMoney/Price';
+import {useGarden} from '@utils/redux.hook.garden';
 
 const MyGarden = () => {
 
     const [isExpanded, setStateExpanded] = useState(false);
-    const [fuits, updateFuits] = useState<TypeGardenElement[]>([
-		{column: 1, row:2, height:1, width:1, img: "/fruit1.png", name: "Ягода 1 уровня", speedGrow: 1},
-		{column: 4, row:2, height:1, width:1, img: "/fruit1.png", name: "Ягода 1 уровня", speedGrow: 1},
-		{column: 3, row:3, height:1, width:1, img: "/fruit1.png", name: "Ягода 1 уровня", speedGrow: 1},
-		{column: 2, row:5, height:1, width:1, img: "/fruit1.png", name: "Ягода 1 уровня", speedGrow: 1},
-		{column: 4, row:4, height:2, width:2, img: "/fruit1.png", name: "Ягода 2 уровня", speedGrow: 1},
-	]);
+	const {garden, increaseBed, addAccelerator, tickGrowFuit} = useGarden();
 
-	const maxArea = 7; // 7 x 7
-	const [area, updateArea] =  useState(5);
-	const [speedGrow, updateSpeedGrow] = useState(15); // %
+	const calcAccelerator = (speed:number, accelerators: [number, number][]) => {
+		accelerators.forEach(acc => speed += speed * acc[0] / 100)
+		return speed.toFixed(1);
+	}
+
+	useEffect(() => {
+		const intervalId = setInterval(tickGrowFuit, 1000); 
+		return () => { clearInterval(intervalId) };
+	  }, []);
 
     return <div className={`mygarden${isExpanded ? " expanded": ""}` }>
         <div className="mygarden__title">Garden</div>
@@ -32,21 +33,21 @@ const MyGarden = () => {
 				<div 
 					className="mygarden__garden"
 					style={{
-						gridTemplateColumns: " 48px".repeat(maxArea),
+						gridTemplateColumns: " 48px".repeat(garden.maxArea),
 						gridAutoRows: "48px",
 					}}
 					>
 					{
-						Array.from({ length: maxArea * maxArea }).map((_, index) => {
-							const row = Math.floor(index / maxArea) + 1;
-							const col = (index % maxArea) + 1;
-							const isArea = row <= area && col <= area;
+						Array.from({ length: garden.maxArea * garden.maxArea }).map((_, index) => {
+							const row = Math.floor(index / garden.maxArea) + 1;
+							const col = (index % garden.maxArea) + 1;
+							const isArea = row <= garden.area && col <= garden.area;
 
 							return <div 
 								className={`mygarden__garden-cell${ isArea ? " active":"" }`}
 								key={`mygarden__garden-cell-${index}`}
 								style={{
-									gridRow: Math.ceil((index + 1) / maxArea),
+									gridRow: Math.ceil((index + 1) / garden.maxArea),
 									gridColumn: col,
 								}}
 								>
@@ -55,7 +56,7 @@ const MyGarden = () => {
 					}
 
 					{
-						fuits.map((elem, index) => <GardenElement {...elem} key={`garden-fruit-index-${index}`} />)
+						garden.bed.map((elem, index) => <GardenElement {...elem} key={`garden-fruit-index-${index}`} />)
 					}
 				</div>
 
@@ -64,24 +65,24 @@ const MyGarden = () => {
 					<div className="mygarden__garden-shop-card">
 						<div className="mygarden__garden-shop-card-title">Увеличить площадь грядки</div>
 						<div className="mygarden__garden-shop-card-price"><Price price={1000}/></div>
-						<button className="mygarden__garden-shop-card-buy">Купить</button>
+						<button className="mygarden__garden-shop-card-buy" onClick={() => increaseBed(1000)}>Купить</button>
 					</div>
 
 					<div className="mygarden__garden-shop-card">
 						<div className="mygarden__garden-shop-card-title">Ускорить рост на 2%/час на 2 часа</div>
 						<div className="mygarden__garden-shop-card-price"><Price price={2000}/></div>
-						<button className="mygarden__garden-shop-card-buy">Купить</button>
+						<button className="mygarden__garden-shop-card-buy" onClick={()=>addAccelerator([2, 120 * 60], 2000)}>Купить</button>
 					</div>
 
 					<div className="mygarden__garden-shop-card">
 						<div className="mygarden__garden-shop-card-title">Ускорить рост на 5%/час на 2 часа</div>
 						<div className="mygarden__garden-shop-card-price"><Price price={5000}/></div>
-						<button className="mygarden__garden-shop-card-buy">Купить</button>
+						<button className="mygarden__garden-shop-card-buy" onClick={()=>addAccelerator([5, 120 * 60], 5000)}>Купить</button>
 					</div>
 
 					<div className="mygarden__garden-shop-speed">
 						<span>Скорость роста</span>
-						<span>{speedGrow}%/час</span>
+						<span>{calcAccelerator(garden.speed, garden.accelerators)}%/час</span>
 					</div>
 
 				</div>
