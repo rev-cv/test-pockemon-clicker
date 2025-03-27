@@ -39,9 +39,12 @@ const ShopMok = [
 ]
 
 const shopSlice = createSlice({
-    name: 'pokemons',
+    name: 'shop',
     initialState: ShopMok as TypeShopElement[],
-    reducers: { }
+    reducers: { 
+        setData: (_, action) => action.payload,
+    }
 });
 
+export const { setData } = shopSlice.actions;
 export default shopSlice.reducer; 

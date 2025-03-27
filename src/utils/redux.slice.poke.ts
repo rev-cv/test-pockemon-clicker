@@ -131,7 +131,9 @@ const pokemonSlice = createSlice({
         getRidOfPokemon: (state, action: PayloadAction<number>) => {
             // удалить покемона
             return state.filter(item => !(item.id === action.payload));
-        }
+        },
+
+        setData: (_, action) => action.payload,
     }
 });
 
@@ -141,5 +143,6 @@ export const {
     renamePokemon,
     getRidOfPokemon,
     tickMakingMoney,
+    setData
 } = pokemonSlice.actions;
 export default pokemonSlice.reducer; 

@@ -5,6 +5,7 @@ import { formatNumber } from '@utils/formatNumber';
 import { RootState } from '@utils/redux.store';
 import { placeNewElementInInventory } from '@utils/inventory.calcPostition';
 import { useInventory } from '@utils/redux.hook.inventory';
+import SearchPanel from '@comps/WSearchPanel/SearchPanel';
 
 const Shop = () => {
 
@@ -15,6 +16,8 @@ const Shop = () => {
 
     return <div className="app-shop">
         <div className="app-shop__title">Shop</div>
+
+        <SearchPanel />
 
         {
             purchases.map((elem, index) => (
@@ -47,6 +50,7 @@ const Shop = () => {
                                 updateInventory(result.newListElements);
                             }
                         }}
+                        
                         >{`Купить за ${formatNumber(elem.price)}`}
                     </button>
                 </div>

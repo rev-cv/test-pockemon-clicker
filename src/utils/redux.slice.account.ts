@@ -5,12 +5,14 @@ const accountSlice = createSlice({
     initialState: 100000000 as number,
     reducers: {
         payAccountMoney: (state, action: PayloadAction<number>) => ( state - action.payload ),
-        earnAccountMoney: (state, action: PayloadAction<number>) => ( state + action.payload )
+        earnAccountMoney: (state, action: PayloadAction<number>) => ( state + action.payload ),
+        setData: (_, action) => action.payload,
     }
 });
 
 export const { 
     payAccountMoney,
-    earnAccountMoney
+    earnAccountMoney,
+    setData
 } = accountSlice.actions;
 export default accountSlice.reducer;

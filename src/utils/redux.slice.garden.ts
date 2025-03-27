@@ -76,6 +76,7 @@ const gardenSlice = createSlice({
             state.accelerators = newAcc;
         },
 
+        setData: (state, action) => ({ ...state, ...action.payload }),
         
     }
 });
@@ -86,5 +87,6 @@ export const {
     increaseBed,
     tickGrowFuit,
     addAccelerator,
+    setData
 } = gardenSlice.actions;
 export default gardenSlice.reducer; 

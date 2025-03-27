@@ -35,12 +35,13 @@ const inventorySlice = createSlice({
         },
         addInventoryRow: (state) => {
             // добавить в матрицу инвентаря новый ряд
-            state.matrix.height++
+            state.matrix.height++;
         },
         removeInventoryRow: (state) => {
             // удалить из матрицы инвентаря последний ряд
-            state.matrix.height--
+            state.matrix.height--;
         },
+        setData: (state, action) => ({ ...state, ...action.payload }),
     }
 });
 
@@ -49,6 +50,7 @@ export const {
     updateInventoryElements,
     eatenFruitElement,
     addInventoryRow,
-    removeInventoryRow
+    removeInventoryRow,
+    setData
 } = inventorySlice.actions;
 export default inventorySlice.reducer; 
