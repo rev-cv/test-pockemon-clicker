@@ -7,7 +7,9 @@
 
     display: flex;
     flex-direction: column;
+    height: 100%;
     gap: .8em;
+    overflow-y: scroll;
 
     &__title {
         @include TextTitle.textTitle();

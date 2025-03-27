@@ -1,9 +1,10 @@
 import './style.scss';
 import { useState, useEffect } from "react";
 import svgClose from '@asset/close.svg?raw';
-import {TypePokemon} from '@comps/FrameMyPokemons/type.pokemon';
+import {TypePokemon} from '@mt/TypePokemon';
 import {roundFormatNumber, formatNumber} from '@utils/formatNumber';
 import { useInventory } from '@utils/redux.hook.inventory';
+import { usePokemons } from '@utils/redux.hook.pokemons'
 
 type TypeCloseModal = {
     closeModal: () => void
@@ -11,14 +12,16 @@ type TypeCloseModal = {
 
 const ModalPokemon = ({id, name, species, weight, totalEarned, moneySec, age, avatar, closeModal}:TypePokemon & TypeCloseModal) => {
 
-    const [fruits, , eatenFruit] = useInventory();
+    const {inventory, eatenFruit} = useInventory();
     const [openTab, setOpenTab] = useState<1|2>(1);
     const [isNotView, setStatusView] = useState(true);
+
+    const { renamePokemon, getRidOfPokemon, feedPokemon } = usePokemons();
 
     const [inputValue, setInputValue] = useState('');
     useEffect(() => {
         setInputValue(name);
-      }, [name]);
+    }, [name]);
 
     useEffect(() => {
 		// блокировка прокрутки основного экрана
@@ -56,7 +59,7 @@ const ModalPokemon = ({id, name, species, weight, totalEarned, moneySec, age, av
             <div className="modal-poke__content">
 
                 {
-                    openTab === 1 && fruits.map( (elem, index) => (
+                    openTab === 1 && inventory.elements.map( (elem, index) => (
                         elem.isEdible && elem.weight && <div className="modal-poke__card" key={`modal-poke-card-fruit-${index}`}>
                             <div className="modal-poke__card-title">{elem.name}</div>
                             <div className="modal-poke__card-descr">{`Накорми ей покемона для увеличения веса на ${(elem.weight / 1000).toFixed(1)} кг`}</div>
@@ -65,7 +68,12 @@ const ModalPokemon = ({id, name, species, weight, totalEarned, moneySec, age, av
                             </picture>
                             <button 
                                 className="modal-poke__card-btn"
-                                onClick={() => eatenFruit([elem.column, elem.row])}
+                                onClick={() => {
+                                    if (elem.weight != undefined) {
+                                        eatenFruit([elem.column, elem.row]);
+                                        feedPokemon(id, elem.weight);
+                                    }
+                                }}
                                 >Накормить
                             </button>
                         </div>
@@ -74,15 +82,23 @@ const ModalPokemon = ({id, name, species, weight, totalEarned, moneySec, age, av
 
                 {
                     openTab === 2 && <div className='modal-poke__about'>
-                        <picture className='modal-poke__about-avatar'><img src={avatar} alt="" /></picture>
+                        <picture className='modal-poke__about-avatar'><img src={avatar} alt="" data-id-poke={id} /></picture>
                         <div className="modal-poke__about-species"><span>{species}</span></div>
                         <div className="modal-poke__about-weight"><span>{roundFormatNumber(weight)} кг</span></div>
-                        <div className="modal-poke__about-summoney"><span>{formatNumber(totalEarned)}</span></div>
+                        <div className="modal-poke__about-summoney"><span>{formatNumber(Math.round(totalEarned))}</span></div>
                         <div className="modal-poke__about-moneysec"><span>{moneySec}</span></div>
-                        <div className="modal-poke__about-age"><span>{age}</span></div>
-                        <button className='modal-poke__about-delete'>Удалить покемона</button>
-                        <button className='modal-poke__about-newname'>Сохранить</button>
-                        <input 
+                        <div className="modal-poke__about-age"><span>{(age / 60 % 60) === 0 ? age / 60 / 60 : (age / 60 / 60).toFixed(1)}</span></div>
+                        <button 
+                            className='modal-poke__about-delete'
+                            onClick={()=>getRidOfPokemon(id)}
+                            >Удалить покемона
+                        </button>
+                        <button 
+                            className='modal-poke__about-newname'
+                            onClick={() => renamePokemon(id, inputValue)}
+                            >Сохранить
+                        </button>
+                        <input
                             type="text" 
                             className='modal-poke__about-newname-text' 
                             placeholder='Псевдоним покемона'

@@ -3,11 +3,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch } from './redux.store';
 import { payAccountMoney, earnAccountMoney } from './redux.slice.account';
 
-type TypeuseAccount = [
-    number,
-    (money: number) => void,
-    (money: number) => void
-]
+type TypeuseAccount = {
+    account: number,
+    payMoney: (money: number) => void,
+    earnMoney: (money: number) => void
+}
 
 export const useAccount = () : TypeuseAccount => {
     const account = useSelector((state: RootState) => state.account);
@@ -21,6 +21,6 @@ export const useAccount = () : TypeuseAccount => {
         dispatch(earnAccountMoney(money));
     };
 
-    return [ account,  payMoney, earnMoney ];
+    return { account,  payMoney, earnMoney };
 };
 

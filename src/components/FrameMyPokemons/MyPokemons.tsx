@@ -1,14 +1,17 @@
 import './style.scss';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PokemonsCard from "./PokemonCard";
-import {TypePokemon} from './type.pokemon';
-
-import mock from './mock.json';
+import { usePokemons } from '@utils/redux.hook.pokemons'
 
 const MyPokemons = () => {
 
-    const [pokemons, updatePokemons] = useState<TypePokemon[]>(mock);
     const [isExpanded, setStateExpanded] = useState(false);
+    const {pokemons, tickMakingMoney} = usePokemons();
+
+    useEffect(() => {
+        const intervalId = setInterval(tickMakingMoney, 1000); 
+        return () => { clearInterval(intervalId) };
+    }, []);
 
     return <div className={`mypoke${isExpanded ? " expanded": ""}` }>
         <div className="mypoke__title">My Pokemons</div>

@@ -7,6 +7,7 @@
 	grid-template-columns: 16em 4fr 16em;
     grid-template-rows: 4.3em 1fr;
 	height: 100vh;
+    max-height: 100vh;
 	grid-template-areas: 
 		"header    header header"
 		"left-side main   right-side"
@@ -39,6 +40,11 @@
         display: grid;
         grid-template-columns: 1fr;
         gap: 1em;
+        overflow-y: scroll;
+        height: 100%;
+        align-content: start;
+        margin: -10px calc(-10px - .15rem) -10px  -10px;
+        padding: 10px .3rem 10px 10px;
     }
 
     &__center-elem {

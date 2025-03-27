@@ -2,8 +2,8 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import { store } from '@utils/redux.store'; // Импортируем store
-import { Provider } from 'react-redux'; // Импортируем Provider
+import { store } from '@utils/redux.store';
+import { Provider } from 'react-redux';
 
 import AppPage from './components/PageApp/AppPage';
 import FormLogin from '@comps/WFormLogin/WFormLogin';

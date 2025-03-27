@@ -10,14 +10,13 @@ const gardenMok = {
         [5, 120],
     ],
     bed: [
-        {column: 1, row:1, height:1, width:1, img: "/fruit1.png", name: "Ягода 1 уровня", speedGrow: 2, weight: 100, complete: 99},
+        {column: 1, row:1, height:1, width:1, img: "/fruit1.png", name: "Ягода 1 уровня", speedGrow: 2, weight: 100, complete: 100},
 		{column: 4, row:2, height:1, width:1, img: "/fruit1.png", name: "Ягода 1 уровня", speedGrow: 2, weight: 100, complete: 25},
 		{column: 3, row:3, height:1, width:1, img: "/fruit1.png", name: "Ягода 1 уровня", speedGrow: 2, weight: 100, complete: 40},
 		{column: 2, row:5, height:1, width:1, img: "/fruit1.png", name: "Ягода 1 уровня", speedGrow: 2, weight: 100, complete: 87},
-		{column: 4, row:4, height:2, width:2, img: "/fruit1.png", name: "Ягода 2 уровня", speedGrow: 1, weight: 200, complete: 20},
+		{column: 4, row:4, height:2, width:2, img: "/fruit1.png", name: "Ягода 2 уровня", speedGrow: 1, weight: 200, complete: 100},
     ]
 }
-
 
 const gardenSlice = createSlice({
     name: 'garden',

@@ -1,17 +1,17 @@
 import { configureStore } from '@reduxjs/toolkit';
 import accountSlice from './redux.slice.account';
 import inventorySlice from './redux.slice.inventory';
-import inventoryRowSlice from './redux.slice.inventoryRows';
 import gardenSlice from './redux.slice.garden';
-
-
+import pokeSlice from './redux.slice.poke';
+import goodsSlice from './redux.slice.shop';
 
 export const store = configureStore({
     reducer: {
-        account: accountSlice,
+        account:   accountSlice,
         inventory: inventorySlice,
-        inventoryRow: inventoryRowSlice,
-        garden: gardenSlice,
+        garden:    gardenSlice,
+        pokemons:  pokeSlice,
+        goods:     goodsSlice,
     }
 });
 

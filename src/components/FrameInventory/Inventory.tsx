@@ -5,34 +5,22 @@ import Price from "@comps/WMoney/Price";
 import { moveFruitInInventory } from "@utils/inventory.calcPostition"
 
 import InventoryElement from './InventoryElement';
-import { useInventory, useInventoryRow } from '@utils/redux.hook.inventory';
-import { useAccount } from '@utils/redux.hook.account';
+import { useInventory } from '@utils/redux.hook.inventory';
 
 const Inventory = () => {
 
-    const inRow = 5; // количество ячеек в ряду
-    const maxRows = 11; // максимально доступное количество рядов
-    const cells = maxRows * inRow;
-    // const [boughtOutRows, setBoughtOutRows] = useState(6);
+    const {inventory, updateInventory, addRow} = useInventory();
+
     const [currentIDElementDrop, setStatusDrop] = useState<number | undefined>(undefined);
 
-    const [fruits, updateStateFuits] = useInventory();
-    const [boughtOutRows, addInventoryRow] = useInventoryRow();
-    const [, payMoney] = useAccount();
-
     const movedFuit = (idCell: number ) => {
-        if (boughtOutRows * inRow < idCell) return;
+        if (inventory.matrix.height * inventory.matrix.width < idCell) return;
         if (currentIDElementDrop === undefined) return;
 
-        const resultCalculation = moveFruitInInventory(
-            currentIDElementDrop,
-            idCell,
-            [...fruits],
-            { width: inRow, height: boughtOutRows }
-        )
+        const resultCalculation = moveFruitInInventory( currentIDElementDrop, idCell )
 
         if (resultCalculation.permissionToMove && resultCalculation.newListElements) {
-            updateStateFuits(resultCalculation.newListElements)
+            updateInventory(resultCalculation.newListElements)
         }
     }
 
@@ -41,42 +29,39 @@ const Inventory = () => {
         <div 
             className={`app-inventory__store${currentIDElementDrop === undefined ? "" : " moving"}`}
             style={{
-                gridTemplateColumns: " 48px".repeat(inRow),
+                gridTemplateColumns: " 48px".repeat(inventory.matrix.width),
                 gridAutoRows: "48px",
             }}
             >
 
             {
-                Array.from({ length: cells }).map((_, index) => (
+                Array.from({ length: inventory.maxRows * inventory.matrix.width }).map((_, index) => (
                     <div 
-                        className={`app-inventory__cell${inRow * boughtOutRows <= index ? " blocked":""}`}
+                        className={`app-inventory__cell${inventory.matrix.width * inventory.matrix.height <= index ? " blocked":""}`}
                         key={`inventory-cell-${index}`}
                         style={{
-                            gridRow: Math.ceil((index + 1) / inRow),
-                            gridColumn: ((index % inRow) + 1),
+                            gridRow: Math.ceil((index + 1) / inventory.matrix.width),
+                            gridColumn: ((index % inventory.matrix.width) + 1),
                         }}
-                        // onDragEnter={e => movedFuit(e, index)}
-                        // onDrop={() => movedFuit(index)}
                         >
                     </div>
                 ))
             }
 
             {
-                (boughtOutRows < maxRows) && <button 
+                (inventory.matrix.height < inventory.maxRows) && <button 
                     className="app-inventory__pay-row"
-                    style={{gridRow: boughtOutRows + 1}}
+                    style={{gridRow: inventory.matrix.height + 1}}
                     onClick={() => { 
-                        if (boughtOutRows < maxRows) {
-                            addInventoryRow();
-                            payMoney(100000);
+                        if (inventory.matrix.height < inventory.maxRows) {
+                            addRow(100000);
                         }
                     }}
                     ><Price price={100000} />
                 </button>
             }           
 
-            { fruits.map((elem, index) => 
+            { inventory.elements.map((elem, index) => 
                 <InventoryElement 
                     setStatusDrop={(status:boolean) => {
                         status ? setStatusDrop(index) : setStatusDrop(undefined)
@@ -91,13 +76,13 @@ const Inventory = () => {
                 // должна быть возможность 
                 // перемещать элемент на ячейку
                 // которую он уже занимает
-                Array.from({ length: cells }).map((_, index) => (
+                Array.from({ length: inventory.maxRows * inventory.matrix.width }).map((_, index) => (
                     <div 
                         className="app-inventory__cell-event"
                         key={`inventory-cell-event-${index}`}
                         style={{
-                            gridRow: Math.ceil((index + 1) / inRow),
-                            gridColumn: ((index % inRow) + 1),
+                            gridRow: Math.ceil((index + 1) / inventory.matrix.width),
+                            gridColumn: ((index % inventory.matrix.width) + 1),
                         }}
                         onDragEnter={() => movedFuit(index)}
                         // onDrop={() => movedFuit(index)}

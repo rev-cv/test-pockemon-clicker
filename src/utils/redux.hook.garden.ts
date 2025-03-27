@@ -20,7 +20,7 @@ export const useGarden= () : TypeUseGarden => {
     const garden = useSelector((state: RootState) => state.garden);
     const dispatch = useDispatch<AppDispatch>();
 
-    const [, payMoney] = useAccount();
+    const {payMoney} = useAccount();
 
     const pickFruitHook = (colRow: [number, number]) => {
         dispatch(pickFruit(colRow));

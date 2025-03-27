@@ -1,8 +1,7 @@
 import './style.scss';
 import { useState } from "react";
 import ModalPokemon from '@comps/ModalPokemon/ModalPokemon';
-import {TypePokemon} from './type.pokemon';
-
+import {TypePokemon} from '@mt/TypePokemon';
 
 import svgSetting from '@asset/setting.svg?raw';
 import {roundFormatNumber} from '@utils/formatNumber';
