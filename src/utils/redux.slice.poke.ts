@@ -3,91 +3,91 @@ import { TypePokemon } from '@mt/TypePokemon';
 
 const PokemonMok = [
     {
-        "id": 1,
-        "name": "",
-        "species": "clefairy",
+        "id": 25,
+        "name": "pikachu",
+        "species": "pikachu",
         "weight": 5500,
         "totalEarned": 0,
         "moneySec": 1.1,
         "age": 60400,
-        "avatar": "/pokemon.png"
-    },
-
-    {
-        "id": 2,
-        "name": "",
-        "species": "clefairy",
-        "weight": 9000,
-        "totalEarned": 0,
-        "moneySec": 1.1,
-        "age": 86400 *.5,
-        "avatar": "/pokemon.png"
-    },
-
-    {
-        "id": 3,
-        "name": "",
-        "species": "clefairy",
-        "weight": 4200,
-        "totalEarned": 0,
-        "moneySec": 1.1,
-        "age": 86400 * .4,
-        "avatar": "/pokemon.png"
-    },
-
-    {
-        "id": 4,
-        "name": "",
-        "species": "clefairy",
-        "weight": 11000,
-        "totalEarned": 0,
-        "moneySec": 1.1,
-        "age": 86400 * 1.2,
-        "avatar": "/pokemon.png"
-    },
-
-    {
-        "id": 5,
-        "name": "",
-        "species": "clefairy",
-        "weight": 1000,
-        "totalEarned": 0,
-        "moneySec": 1.1,
-        "age": 86400 * 1.8,
-        "avatar": "/pokemon.png"
+        "avatar": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png"
     },
 
     {
         "id": 6,
-        "name": "",
-        "species": "clefairy",
+        "name": "charizard",
+        "species": "charizard",
+        "weight": 9000,
+        "totalEarned": 0,
+        "moneySec": 1.1,
+        "age": 86400 *.5,
+        "avatar": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png"
+    },
+
+    {
+        "id": 133,
+        "name": "eevee",
+        "species": "eevee",
+        "weight": 4200,
+        "totalEarned": 0,
+        "moneySec": 1.1,
+        "age": 86400 * .4,
+        "avatar": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/133.png"
+    },
+
+    {
+        "id": 150,
+        "name": "mewtwo",
+        "species": "mewtwo",
+        "weight": 11000,
+        "totalEarned": 0,
+        "moneySec": 1.1,
+        "age": 86400 * 1.2,
+        "avatar": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/150.png"
+    },
+
+    {
+        "id": 143,
+        "name": "snorlax",
+        "species": "snorlax",
+        "weight": 1000,
+        "totalEarned": 0,
+        "moneySec": 1.1,
+        "age": 86400 * 1.8,
+        "avatar": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/143.png"
+    },
+
+    {
+        "id": 1,
+        "name": "bulbasaur",
+        "species": "bulbasaur",
         "weight": 12000,
         "totalEarned": 0,
         "moneySec": 1.1,
         "age": 86400 * 5,
-        "avatar": "/pokemon.png"
+        "avatar": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"
     },
 
     {
         "id": 7,
-        "name": "",
-        "species": "clefairy",
+        "name": "squirtle",
+        "species": "squirtle",
         "weight": 12000,
         "totalEarned": 0,
         "moneySec": 1.1,
         "age": 86400 * 3,
-        "avatar": "/pokemon.png"
+        "avatar": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png"
     },
 
     {
-        "id": 8,
-        "name": "",
-        "species": "clefairy",
+        "id": 39,
+        "name": "jigglypuff",
+        "species": "jigglypuff",
         "weight": 11000,
         "totalEarned": 0,
         "moneySec": 1.1,
         "age": 86400,
-        "avatar": "/pokemon.png"
+        "avatar": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/39.png"
     }
 ]
 
@@ -119,7 +119,7 @@ const pokemonSlice = createSlice({
         },
 
         renamePokemon: (state, action: PayloadAction<[number, string]>) => { // id, newName
-            // покормить покемона / увеличить вес
+            // удалить покемона
             state.map(elem => {
                 if (elem.id === action.payload[0]) {
                     elem.name = action.payload[1];

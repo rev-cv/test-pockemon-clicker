@@ -4,7 +4,8 @@ import inventorySlice from './redux.slice.inventory';
 import gardenSlice from './redux.slice.garden';
 import pokeSlice from './redux.slice.poke';
 import goodsSlice from './redux.slice.shop';
-import { saveToIndexedDB } from './middleware';
+import { saveToIndexedDB } from './redux.middleware.indexed';
+import { authApi } from './redux.api';
 
 export const store = configureStore({
     reducer: {
@@ -13,8 +14,12 @@ export const store = configureStore({
         garden:    gardenSlice,
         pokemons:  pokeSlice,
         goods:     goodsSlice,
+        [authApi.reducerPath]: authApi.reducer,
     },
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(saveToIndexedDB),
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware()
+        .concat(saveToIndexedDB)
+        .concat(authApi.middleware)
+    ,
 });
 
 export type RootState = ReturnType<typeof store.getState>;
